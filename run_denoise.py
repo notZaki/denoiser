@@ -373,7 +373,8 @@ def denoise(img_file, tsv_file, out_path, col_names=False, hp_filter=False, lp_f
     file_carpet_plot = 'Carpet_plots' + png_append
     fig.savefig(pjoin(out_figure_path, file_carpet_plot))
     plt.close()
-    del fig, ax0, ax_curr, ax_d, dvars
+    if 'ax0' in globals(): del ax0
+    del fig, ax_curr, ax_d, dvars
     os.remove(mask_file)
     print('Carpet/DVARS plots saved')
     if lp_filter:
