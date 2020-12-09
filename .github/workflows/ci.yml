@@ -47,8 +47,9 @@ jobs:
         ./run_denoise.py test_data/sub-01_task-rhymejudgment_bold_space-MNI152NLin2009cAsym_preproc.nii.gz test_data/sub-01_task-rhymejudgment_bold_confounds.tsv test_outputs/subset --col_names FramewiseDisplacement GlobalSignal
     - name: Smoke test - without FD
       run: |
-        mkdir -p test_outputs/subset
-        ./run_denoise.py test_data/sub-01_task-rhymejudgment_bold_space-MNI152NLin2009cAsym_preproc.nii.gz test_data/sub-01_task-rhymejudgment_bold_confounds.tsv test_outputs/subset --col_names GlobalSignal
+        mkdir -p test_outputs/noFD
+        cut --complement -d$'\t' -f7 test_data/sub-01_task-rhymejudgment_bold_confounds.tsv > test_data/confounds_without_framewisedisplacement.tsv
+        ./run_denoise.py test_data/sub-01_task-rhymejudgment_bold_space-MNI152NLin2009cAsym_preproc.nii.gz test_data/confounds_without_framewisedisplacement.tsv test_outputs/noFD
     - name: Smoke test - high pass
       run: |
         mkdir -p test_outputs/hp
